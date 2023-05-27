@@ -1,11 +1,8 @@
 package com.user.cruduser.controller;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
