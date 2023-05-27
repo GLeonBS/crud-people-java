@@ -1,5 +1,7 @@
 package com.user.cruduser.model;
 
+import java.util.UUID;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,15 +12,17 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Contacts {
+public class Contact {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(generator = "UUID", strategy = GenerationType.AUTO)
+    private UUID id;
 
     @Column(length = 150 ,nullable = false)
-    private String nome;
+    private String name;
+
     @Column(length = 11, nullable = false)
-    private String telefone;
+    private String phoneNumber;
+
     @Column(length = 150, nullable = false)
     private String email;
 }
