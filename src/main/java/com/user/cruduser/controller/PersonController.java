@@ -40,10 +40,8 @@ public class PersonController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Person> findById(@PathVariable @NotNull UUID id) {
-        return personService.findById(id)
-            .map(recordFound -> ResponseEntity.ok().body(recordFound))
-            .orElse(ResponseEntity.notFound().build());
+    public Person findById(@PathVariable @NotNull UUID id) {
+        return personService.findById(id);
     }
 
     @PostMapping
@@ -53,17 +51,13 @@ public class PersonController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Person> update(@PathVariable @NotNull UUID id, @RequestBody @Valid Person person){
-        return personService.update(id, person)
-            .map(recordFound -> ResponseEntity.ok().body(recordFound))
-            .orElse(ResponseEntity.notFound().build());
+    public Person update(@PathVariable @NotNull UUID id, @RequestBody @Valid Person person){
+        return personService.update(id, person);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable @NotNull UUID id) {
-        if (personService.delete(id)){
-            return ResponseEntity.noContent().<Void>build();
-        }
-        return ResponseEntity.notFound().build();
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable @NotNull UUID id) {
+        personService.delete(id);
     }
 }

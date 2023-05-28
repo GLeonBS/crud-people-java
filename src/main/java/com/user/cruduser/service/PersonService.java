@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.user.cruduser.exception.RecordNotFoundException;
 import com.user.cruduser.model.Person;
 import com.user.cruduser.repository.PersonRepository;
 
@@ -29,8 +30,8 @@ public class PersonService {
         return personRepository.findAll(pageable);
     }
 
-    public Optional<Person> findById(@PathVariable @NotNull UUID id) {
-        return personRepository.findById(id);
+    public Person findById(@PathVariable @NotNull UUID id) {
+        return personRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(id));
     }
 
     @ResponseStatus(code = HttpStatus.CREATED)
@@ -38,7 +39,7 @@ public class PersonService {
         return personRepository.save(person);
     }
 
-    public Optional<Person> update(@NotNull UUID id, @Valid Person person){
+    public Person update(@NotNull UUID id, @Valid Person person){
         return personRepository.findById(id)
             .map(recordFound ->{
                 recordFound.setName(person.getName());
@@ -46,15 +47,12 @@ public class PersonService {
                 recordFound.setCpf(person.getCpf());
                 recordFound.setContacts(person.getContacts());
                 return personRepository.save(recordFound);
-            });
+            }).orElseThrow(() -> new RecordNotFoundException(id));
     }
 
-    public boolean delete(@PathVariable @NotNull UUID id) {
-        return personRepository.findById(id)
-        .map(recordFound ->{
-            personRepository.deleteById(id);
-            return true;
-        })
-        .orElse(false);
+    public void delete(@PathVariable @NotNull UUID id) {
+        personRepository
+            .delete(personRepository.findById(id)
+                        .orElseThrow(() -> new RecordNotFoundException(id)));
     }
 }
