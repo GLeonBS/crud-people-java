@@ -9,5 +9,5 @@ import com.user.cruduser.model.Person;
 
 @Repository
 public interface PersonRepository extends JpaRepository<Person, UUID> {
-    
+
 }
