@@ -10,8 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 @Data
@@ -21,20 +20,17 @@ public class Contact {
     @GeneratedValue(generator = "UUID", strategy = GenerationType.AUTO)
     private UUID id;
 
-    @NotBlank
-    @NotNull
+    @NotEmpty
     @Length(max = 150)
     @Column(length = 150, nullable = false)
     private String name;
 
-    @NotBlank
-    @NotNull
+    @NotEmpty
     @Length(max = 11)
     @Column(length = 11, nullable = false)
     private String phoneNumber;
 
-    @NotBlank
-    @NotNull
+    @NotEmpty
     @Length(max = 150)
     @Column(length = 150, nullable = false)
     @Email

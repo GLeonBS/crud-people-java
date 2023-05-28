@@ -5,7 +5,6 @@ import java.util.UUID;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.user.cruduser.dto.PersonDTO;
 import com.user.cruduser.model.Person;
 import com.user.cruduser.service.PersonService;
 
@@ -31,7 +30,7 @@ import lombok.AllArgsConstructor;
 @RequestMapping("/api/person")
 @AllArgsConstructor
 public class PersonController {
-    
+
     private final PersonService personService;
 
     @GetMapping
@@ -40,18 +39,18 @@ public class PersonController {
     }
 
     @GetMapping("/{id}")
-    public Person findById(@PathVariable @NotNull UUID id) {
+    public PersonDTO findById(@PathVariable @NotNull UUID id) {
         return personService.findById(id);
     }
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public Person create(@RequestBody @Valid Person person){
+    public PersonDTO create(@RequestBody @Valid PersonDTO person) {
         return personService.create(person);
     }
 
     @PutMapping("/{id}")
-    public Person update(@PathVariable @NotNull UUID id, @RequestBody @Valid Person person){
+    public PersonDTO update(@PathVariable @NotNull UUID id, @RequestBody @Valid PersonDTO person) {
         return personService.update(id, person);
     }
 

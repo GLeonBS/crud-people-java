@@ -15,9 +15,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.PastOrPresent;
 import lombok.Data;
 
@@ -28,14 +27,12 @@ public class Person {
     @GeneratedValue(generator = "UUID", strategy = GenerationType.AUTO)
     private UUID id;
 
-    @NotBlank
-    @NotNull
+    @NotEmpty
     @Length(max = 150)
     @Column(length = 150, nullable = false)
     private String name;
 
-    @NotBlank
-    @NotNull
+    @NotEmpty
     @Length(max = 11)
     @Column(length = 11, nullable = false)
     @CPF
@@ -46,8 +43,7 @@ public class Person {
     @PastOrPresent
     private LocalDate birthDate;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "pessoa_id", nullable = false)
+    @NotEmpty.List(value = { @NotEmpty })
     private List<Contact> contacts;
 
 }
