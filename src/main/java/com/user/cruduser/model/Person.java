@@ -44,6 +44,7 @@ public class Person {
     private LocalDate birthDate;
 
     @NotEmpty.List(value = { @NotEmpty })
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "pessoa_id", nullable = false)
     private List<Contact> contacts;
-
 }
