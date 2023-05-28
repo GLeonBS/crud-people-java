@@ -20,19 +20,18 @@ public class Contact {
     @GeneratedValue(generator = "UUID", strategy = GenerationType.AUTO)
     private UUID id;
 
-    @NotEmpty
-    @Length(max = 150)
+    @Length(message = "Tamanho do campo excedido, favor inserir menos que 150 caracteres")
     @Column(length = 150, nullable = false)
+    @NotEmpty(message = "Campo vazio, favor inserir um nome nos contatos")
     private String name;
 
-    @NotEmpty
-    @Length(max = 11)
+    @Length(message = "Tamanho do campo excedido, favor inserir menos que 11 caracteres")
     @Column(length = 11, nullable = false)
+    @NotEmpty(message = "Campo vazio, favor inserir um telefone nos contatos")
     private String phoneNumber;
 
-    @NotEmpty
-    @Length(max = 150)
+    @Email(message = "Email inválido")
     @Column(length = 150, nullable = false)
-    @Email
+    @NotEmpty(message = "Campo vazio, favor inserir um email nos contatos")
     private String email;
 }
