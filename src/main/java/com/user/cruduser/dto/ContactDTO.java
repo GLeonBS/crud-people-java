@@ -11,7 +11,7 @@ import jakarta.validation.constraints.NotEmpty;
 @Validated
 public record ContactDTO(
         UUID _id,
-        @NotEmpty @Length(max = 150)String name,
-        @NotEmpty @Length(max = 11)String phoneNumber,
-        @NotEmpty @Length(max = 150) @Email String email) {
+        @NotEmpty(message = "Campo vazio, favor inserir um nome nos contatos") @Length(message = "Tamanho do campo excedido, favor inserir menos que 150 caracteres")String name,
+        @NotEmpty(message = "Campo vazio, favor inserir um telefone nos contatos") @Length(message = "Tamanho do campo excedido, favor inserir menos que 11 caracteres")String phoneNumber,
+        @NotEmpty(message = "Campo vazio, favor inserir um email nos contatos") @Length(max = 150) @Email(message = "Email inválido") String email) {
 }
