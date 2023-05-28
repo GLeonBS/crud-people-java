@@ -1,9 +1,10 @@
 package com.user.cruduser.service;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -24,8 +25,8 @@ import lombok.AllArgsConstructor;
 public class PersonService {
     private final PersonRepository personRepository;
 
-    public @ResponseBody List<Person> list() {
-        return personRepository.findAll();
+    public @ResponseBody Page<Person> list(Pageable pageable) {
+        return personRepository.findAll(pageable);
     }
 
     public Optional<Person> findById(@PathVariable @NotNull UUID id) {

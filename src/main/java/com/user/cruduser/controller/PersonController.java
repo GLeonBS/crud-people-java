@@ -3,6 +3,7 @@ package com.user.cruduser.controller;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -34,8 +35,8 @@ public class PersonController {
     private final PersonService personService;
 
     @GetMapping
-    public @ResponseBody List<Person> list() {
-        return personService.list();
+    public @ResponseBody List<Person> list(Pageable pageable) {
+        return personService.list(pageable).getContent();
     }
 
     @GetMapping("/{id}")
