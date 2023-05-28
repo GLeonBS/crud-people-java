@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,56 +19,50 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import com.user.cruduser.model.Person;
-import com.user.cruduser.repository.PersonRepository;
+import com.user.cruduser.service.PersonService;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 
+@Validated
 @RestController
 @RequestMapping("/api/person")
 @AllArgsConstructor
 public class PersonController {
     
-    private final PersonRepository personRepository;
+    private final PersonService personService;
 
     @GetMapping
-    public @ResponseBody List<Person> lista() {
-        return personRepository.findAll();
+    public @ResponseBody List<Person> list() {
+        return personService.list();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Person> findById(@PathVariable UUID id) {
-        return personRepository.findById(id)
+    public ResponseEntity<Person> findById(@PathVariable @NotNull UUID id) {
+        return personService.findById(id)
             .map(recordFound -> ResponseEntity.ok().body(recordFound))
             .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public Person create(@RequestBody Person person){
-        return personRepository.save(person);
+    public Person create(@RequestBody @Valid Person person){
+        return personService.create(person);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Person> update(@PathVariable UUID id, @RequestBody Person person){
-        return personRepository.findById(id)
-            .map(recordFound ->{
-                recordFound.setName(person.getName());
-                recordFound.setBirthDate(person.getBirthDate());
-                recordFound.setCpf(person.getCpf());
-                recordFound.setContacts(person.getContacts());
-                Person updated = personRepository.save(recordFound);
-                return ResponseEntity.ok().body(updated);
-            })
+    public ResponseEntity<Person> update(@PathVariable @NotNull UUID id, @RequestBody @Valid Person person){
+        return personService.update(id, person)
+            .map(recordFound -> ResponseEntity.ok().body(recordFound))
             .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable UUID id) {
-        return personRepository.findById(id)
-        .map(recordFound ->{
-            personRepository.deleteById(id);
+    public ResponseEntity<Void> delete(@PathVariable @NotNull UUID id) {
+        if (personService.delete(id)){
             return ResponseEntity.noContent().<Void>build();
-        })
-        .orElse(ResponseEntity.notFound().build());
+        }
+        return ResponseEntity.notFound().build();
     }
 }
