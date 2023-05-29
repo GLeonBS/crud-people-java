@@ -25,8 +25,8 @@ public class PersonService {
     private final PersonRepository personRepository;
     private final PersonMapper personMapper;
 
-    public Page<Person> list(Pageable pageable) {
-        return personRepository.findAll(pageable);
+    public Page<PersonDTO> list(Pageable pageable) {
+        return personRepository.findAll(pageable).map(personMapper::toDTO);
     }
 
     public PersonDTO findById(@PathVariable @NotNull UUID id) {

@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.user.cruduser.dto.PersonDTO;
-import com.user.cruduser.model.Person;
 import com.user.cruduser.service.PersonService;
 
 import jakarta.validation.Valid;
@@ -34,7 +33,7 @@ public class PersonController {
     private final PersonService personService;
 
     @GetMapping
-    public @ResponseBody List<Person> list(Pageable pageable) {
+    public @ResponseBody List<PersonDTO> list(Pageable pageable) {
         return personService.list(pageable).getContent();
     }
 
