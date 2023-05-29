@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.user.cruduser.dto.PersonDTO;
 import com.user.cruduser.dto.mapper.PersonMapper;
 import com.user.cruduser.exception.RecordNotFoundException;
-import com.user.cruduser.model.Person;
 import com.user.cruduser.repository.PersonRepository;
 
 import jakarta.validation.Valid;
