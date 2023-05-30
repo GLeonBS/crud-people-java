@@ -1,4 +1,4 @@
-# API CRUD de People
+# API CRUD de pessoas
 
 Esta é uma API RESTful de CRUD para gerenciar informações de pessoas com contatos. Foi desenvolvida usando o framework Spring Boot, PostgreSQL como banco de dados.
 
