@@ -30,7 +30,6 @@ class PersonServiceTests extends ApplicationConfigTest {
 	private PersonMapper personMapper;
 
 	private final static UUID ID_PERSON = new UUID(45L, 0);
-	private final static UUID ID_CONTACT = new UUID(47L, 0);
 
 	@Test
 	@DisplayName("Deve retornar que o registro não foi encontrado")
