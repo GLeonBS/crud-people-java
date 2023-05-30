@@ -4,7 +4,7 @@ Esta é uma API RESTful de CRUD para gerenciar informações de pessoas com cont
 
 ## Configuração
 
-Certifique-se de ter a <a src="https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html" target="_blank"> JDK 17 </a> instalada.
+Certifique-se de ter a [JDK 17](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html) instalada.
 
 ### Banco de Dados
 
