@@ -41,7 +41,7 @@ A API possui os seguintes endpoints:
 
 Os dados são enviados e retornados no formato JSON.
 
-### Exemplo de solicitação para a rota `POST /persons`:
+### Exemplo de solicitação para a rota `POST /person`:
 
 ```json
 {
